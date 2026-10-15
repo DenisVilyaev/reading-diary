@@ -5,8 +5,6 @@ import { initialBooks } from './data/books';
 import { useState } from 'react';
 import type { BookType } from './types/book';
 
-const [books, setBooks] = useState<BookType[]>(initialBooks)
-
 const Page = styled.div`
   min-height: 100vh;
   padding: 20px 48px;
@@ -19,19 +17,18 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-export function deleteBook(id: number) {
-  initialBooks.filter((book) => {
-    book.id !== id
-  })
-}
-
 export default function App() {
 
+  const [books, setBooks] = useState<BookType[]>(initialBooks)
+
+  function deleteBook(id:number) {
+  setBooks((currentBooks) => currentBooks.filter((book) => book.id !== id))
+}
   return (
     <Page>
       <Container>
         <Stats books={books}/>
-        <BookList />
+        <BookList books={books} deleteBook={deleteBook}/>
       </Container>
     </Page>
   )

@@ -1,4 +1,4 @@
-import { initialBooks } from "../data/books";
+import type { BookType } from "../types/book";
 import { BookCard } from "./BookCard/BookCard";
 import styled from "@emotion/styled";
 
@@ -8,6 +8,16 @@ const BoookList = styled.section`
   border: 1px solid #e7dfd4;
   border-radius: 18px;
   box-shadow: 0 12px 32px rgba(82, 68, 52, 0.1);
+`;
+
+const EmptyText = styled.section`
+  margin: 0;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  color: #756f68;
 `;
 
 const BoookListTitle = styled.h2`
@@ -25,15 +35,26 @@ const List = styled.div`
   gap: 12px;
 `;
 
-export function BookList() {
+interface BookListProp {
+  books: BookType[];
+  deleteBook: (id: number) => void;
+}
+
+export function BookList({ books, deleteBook }: BookListProp) {
   return (
-    <BoookList>
-      <BoookListTitle>Мои книги</BoookListTitle>
-      <List>
-        {initialBooks.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
-      </List>
-    </BoookList>
+    <>
+      {books.length === 0 ? (
+        <BoookList>
+          <BoookListTitle>Мои книги</BoookListTitle>
+          <List>
+            {books.map((book) => (
+              <BookCard key={book.id} book={book} deleteBook={deleteBook} />
+            ))}
+          </List>
+        </BoookList>
+      ) : (
+        <EmptyText>Книг нет</EmptyText>
+      )}
+    </>
   );
 }

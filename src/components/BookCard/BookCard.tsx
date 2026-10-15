@@ -1,4 +1,3 @@
-import type { deleteBook } from "../../App";
 import type { BookStatusType, BookType } from "../../types/book";
 import styled from "@emotion/styled";
 
@@ -129,6 +128,7 @@ cursor: not-allowed;
 
 interface BookCardProps {
   book: BookType;
+  deleteBook: (id:number) => void
 }
 
 const formatStatus = {
@@ -137,7 +137,7 @@ const formatStatus = {
   done: "Прочитано",
 };
 
-export function BookCard({ book }: BookCardProps) {
+export function BookCard({ book, deleteBook }: BookCardProps) {
   return (
     <>
       <Card>
@@ -160,7 +160,7 @@ export function BookCard({ book }: BookCardProps) {
             <Info>Оценка появится после прочтения</Info>
           )}
         </CardInfo>
-        <DeleteBtn onClick={deleteBook} type="button" aria-label="Удалить книгу">🗑️</DeleteBtn>
+        <DeleteBtn onClick={() => deleteBook(book.id)} type="button" aria-label="Удалить книгу">🗑️</DeleteBtn>
       </Card>
     </>
   );
