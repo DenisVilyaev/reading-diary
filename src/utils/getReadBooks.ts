@@ -1,6 +1,6 @@
-import type { Book } from "../types/book";
+// import type { Book } from "../types/book";
 
-export function getReadBooks(books:Book[]):String[] {
+// export function getReadBooks(books:Book[]):String[] {
     
-    return books.filter((book:Book) => book.isRead === true).map((book) => book.title)
-}
+//     return books.filter((book:Book) => book.isRead === true).map((book) => book.title)
+// }
