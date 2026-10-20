@@ -43,7 +43,7 @@ interface BookListProp {
 export function BookList({ books, deleteBook }: BookListProp) {
   return (
     <>
-      {books.length === 0 ? (
+      {books.length !== 0 ? (
         <BoookList>
           <BoookListTitle>Мои книги</BoookListTitle>
           <List>

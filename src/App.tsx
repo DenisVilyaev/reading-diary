@@ -4,6 +4,7 @@ import { Stats } from './components/Stats/Stats';
 import { initialBooks } from './data/books';
 import { useState } from 'react';
 import type { BookType } from './types/book';
+import { BookForm } from './components/BookForm/BookForm';
 
 const Page = styled.div`
   min-height: 100vh;
@@ -29,6 +30,7 @@ export default function App() {
       <Container>
         <Stats books={books}/>
         <BookList books={books} deleteBook={deleteBook}/>
+        <BookForm  />
       </Container>
     </Page>
   )

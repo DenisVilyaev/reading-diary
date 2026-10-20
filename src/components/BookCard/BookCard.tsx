@@ -139,7 +139,6 @@ const formatStatus = {
 
 export function BookCard({ book, deleteBook }: BookCardProps) {
   return (
-    <>
       <Card>
         <Cover propsStatus={book.status} src={book.cover} alt={book.title}>
           {/* <CoverTitle propsLength={book.title.length}>{book.title}</CoverTitle> */}
@@ -162,6 +161,5 @@ export function BookCard({ book, deleteBook }: BookCardProps) {
         </CardInfo>
         <DeleteBtn onClick={() => deleteBook(book.id)} type="button" aria-label="Удалить книгу">🗑️</DeleteBtn>
       </Card>
-    </>
   );
 }
