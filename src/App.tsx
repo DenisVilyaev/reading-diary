@@ -22,15 +22,29 @@ export default function App() {
 
   const [books, setBooks] = useState<BookType[]>(initialBooks)
 
-  function deleteBook(id:number) {
-  setBooks((currentBooks) => currentBooks.filter((book) => book.id !== id))
-}
+  function deleteBook(id: number) {
+    setBooks((currentBooks) => currentBooks.filter((book) => book.id !== id))
+  }
+
+  function addBook(book: BookType) {
+    return (
+      {
+        title:book.title,
+        author:book.author,
+        status:book.status,
+        rating:book.rating,
+        note:book.note,
+        cover:book.cover,
+      }
+    )
+  }
+
   return (
     <Page>
       <Container>
-        <Stats books={books}/>
-        <BookList books={books} deleteBook={deleteBook}/>
-        <BookForm  />
+        <Stats books={books} />
+        <BookList books={books} deleteBook={deleteBook} />
+        <BookForm addBook={addBook} />
       </Container>
     </Page>
   )

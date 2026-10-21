@@ -1,4 +1,3 @@
-import { initialBooks } from "../data/books"
 
 export interface BookType {
     id: number,

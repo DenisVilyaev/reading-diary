@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import type { BookStatusType } from "../../types/book";
+import type { BookStatusType, BookType } from "../../types/book";
 
 
 const Form = styled.form`
@@ -88,9 +88,19 @@ font-weight: 300;
 font-size: 16px;
 padding: 0 0 10px 0;`
 
+const Error = styled.div``
+
+const AddButton = styled.button``
+
 // задача на потом: сделать обложку опциональной (по задаче возможно и заметку)
 
-export function BookForm() {
+interface BookFormType {
+  addBook: (book: BookType) => void
+}
+
+
+export function BookForm({addBook}: BookFormType) {
+  const [error, setError] = useState('')
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [status, setStatus] = useState<BookStatusType>("want")
@@ -108,12 +118,12 @@ export function BookForm() {
 
 
   return (
-    <Form>
+    <Form onSubmit={addBook}>
       <Title>Добавить книгу</Title>
 
-      <FormField>Название<Input onChange={(e) => setTitle(e.target.value)} placeholder="Укажите название"/></FormField>
+      <FormField>Название<Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Укажите название"/></FormField>
 
-      <FormField>Автор<Input onChange={(e) => setAuthor(e.target.value)} placeholder="Укажите автора"/></FormField>
+      <FormField>Автор<Input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Укажите автора"/></FormField>
 
       <FormField>Статус<Select onChange={(e) => setStatus(e.target.value as BookStatusType)} value={status}>
         <option value="want">Запланированно</option>
@@ -122,7 +132,7 @@ export function BookForm() {
       </Select></FormField>
 
       <FormField>Рейтинг
-        <Select onChange={(e) => setRating(Number(e.target.value))}>
+        <Select onChange={(e) => setRating(Number(e.target.value))} value={rating}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -133,13 +143,13 @@ export function BookForm() {
 
       <Optional>
         <OptionalTitle>Опционально</OptionalTitle>
-        <FormField>Заметка<FormTextArea onChange={(e) => setNote(e.target.value)} placeholder="укажите ваши заметки здесь"/></FormField>
+        <FormField>Заметка<FormTextArea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Укажите ваши заметки здесь"/></FormField>
 
-      <FormField>Обложка <Input type="url" onChange={(e) => setCover(e.target.value)} placeholder="Укажите ссылку на обложку" /></FormField>
+      <FormField>Обложка <Input type="url" value={cover} onChange={(e) => setCover(e.target.value)} placeholder="Укажите ссылку на обложку" /></FormField>
 
       </Optional>
 
-      
+      <AddButton type="submit">Добавить</AddButton>
 
     </Form>
   )
