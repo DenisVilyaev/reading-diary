@@ -1,5 +1,6 @@
 import type { BookStatusType, BookType } from "../../types/book";
 import styled from "@emotion/styled";
+import noCover from "../../assets/noCover.svg";
 
 const Card = styled.article`
   display: flex;
@@ -23,17 +24,6 @@ const Cover = styled.img<{propsStatus: BookStatusType}>`
     }
   }
 `;
-
-// const CoverTitle = styled.div<{propsLength: number}>`
-// font-size: ${({ propsLength }) => {
-//   if (propsLength > 40) return "8px;"
-//   if (propsLength > 28) return "10px;"
-//   if (propsLength > 16) return "12px;"
-//   if (propsLength < 16) return "16px;"
-//   console.log(propsLength)
-// }};
-// color: #000000;
-// `
 
 const CardInfo = styled.div`
   padding: 10px 10px 10px 40px;
@@ -140,9 +130,7 @@ const formatStatus = {
 export function BookCard({ book, deleteBook }: BookCardProps) {
   return (
       <Card>
-        <Cover propsStatus={book.status} src={book.cover} alt={book.title}>
-          {/* <CoverTitle propsLength={book.title.length}>{book.title}</CoverTitle> */}
-        </Cover>
+        <Cover propsStatus={book.status} src={book.cover ? book.cover : noCover} alt={book.title} />
         <CardInfo>
           <Title>{book.title}</Title>
           <Author>{book.author}</Author>

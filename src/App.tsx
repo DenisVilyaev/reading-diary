@@ -5,6 +5,7 @@ import { initialBooks } from './data/books';
 import { useState } from 'react';
 import type { BookType } from './types/book';
 import { BookForm } from './components/BookForm/BookForm';
+import { ProfileSettings } from './components/ProfileSettings/ProfileSettings';
 
 const Page = styled.div`
   min-height: 100vh;
@@ -23,25 +24,17 @@ export default function App() {
   const [books, setBooks] = useState<BookType[]>(initialBooks)
 
   function deleteBook(id: number) {
-    setBooks((currentBooks) => currentBooks.filter((book) => book.id !== id))
+    setBooks(books => books.filter((book) => book.id !== id))
   }
 
-  function addBook(book: BookType) {
-    return (
-      {
-        title:book.title,
-        author:book.author,
-        status:book.status,
-        rating:book.rating,
-        note:book.note,
-        cover:book.cover,
-      }
-    )
-  }
+  function addBook(newBook: Omit<BookType, 'id'>) {
+setBooks(books => [...books, { ...newBook, id: Date.now()}])
+}
 
   return (
     <Page>
       <Container>
+        <ProfileSettings />
         <Stats books={books} />
         <BookList books={books} deleteBook={deleteBook} />
         <BookForm addBook={addBook} />

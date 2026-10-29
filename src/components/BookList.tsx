@@ -11,12 +11,11 @@ const BoookList = styled.section`
 `;
 
 const EmptyText = styled.section`
-  margin: 0;
+  margin: 50px 0 0 0;
   font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
   color: #756f68;
 `;
 

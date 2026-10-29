@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import type { BookType } from "../../types/book";
 
 const StatsSection = styled.section`
-  margin-bottom: 28px;
+  margin: 0 0 30px 0;
 `;
 
 const StatsWrapper = styled.div`
