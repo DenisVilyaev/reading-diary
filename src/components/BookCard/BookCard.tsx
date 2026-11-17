@@ -1,6 +1,7 @@
 import type { BookStatusType, BookType } from "../../types/book";
 import styled from "@emotion/styled";
 import noCover from "../../assets/noCover.svg";
+import { StarIcon, TrashIcon } from "../../icons/icons";
 
 const Card = styled.article`
   display: flex;
@@ -82,18 +83,18 @@ const Info = styled.p`
   margin: 12px 0 0;
   font-size: 17px;
   color: #5f5750;
+  display: flex;
+  align-items: flex-start;
 `;
 
 const Stars = styled.span`
-  color: #e6b24c;
-  letter-spacing: 1px;
+margin: 0 3px 0 0;
 `;
 
 const DeleteBtn = styled.button`
 width: 38px;
 height: 38px;
 padding: 0;
-font-size: 18px;
 background-color: #fffaf4;
 border: 1px solid #ded6cc;
 border-radius: 10px;
@@ -130,7 +131,7 @@ const formatStatus = {
 export function BookCard({ book, deleteBook }: BookCardProps) {
   return (
       <Card>
-        <Cover propsStatus={book.status} src={book.cover ? book.cover : noCover} alt={book.title} />
+        <Cover propsStatus={book.status} src={book.cover ? book.cover : noCover} alt={"обложка книги:" + book.title} />
         <CardInfo>
           <Title>{book.title}</Title>
           <Author>{book.author}</Author>
@@ -138,7 +139,8 @@ export function BookCard({ book, deleteBook }: BookCardProps) {
           {book.status === "done" ? (
             <>
               <Info>
-                Оценка: <Stars>{"★".repeat(book.rating || 0)}</Stars>{" "}
+                {/* Оценка: <Stars>{"★".repeat(book.rating || 0)}</Stars>{" "} */}
+                Оценка: <Stars>{Array.from({ length: book.rating || 0 }).map((_) => (<StarIcon/>))}</Stars>
                 {book.rating}/5
               </Info>
               {book.note && <Info>{book.note}</Info>}
@@ -147,7 +149,7 @@ export function BookCard({ book, deleteBook }: BookCardProps) {
             <Info>Оценка появится после прочтения</Info>
           )}
         </CardInfo>
-        <DeleteBtn onClick={() => deleteBook(book.id)} type="button" aria-label="Удалить книгу">🗑️</DeleteBtn>
+        <DeleteBtn onClick={() => deleteBook(book.id)} type="button" aria-label="Удалить книгу"><TrashIcon /></DeleteBtn>
       </Card>
   );
 }

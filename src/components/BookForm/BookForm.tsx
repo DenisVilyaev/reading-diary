@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import type { BookStatusType, BookType } from "../../types/book";
+import { InfoIcon } from "../../icons/icons";
 
 
 const Form = styled.form`
-  margin: 50px 0 0 0;
   padding: 28px;
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid #e7dfd4;
@@ -27,7 +27,7 @@ display: flex;
 
 `
 
-const Input = styled.input<{hasError: string}>`
+const Input = styled.input<{ hasError: string }>`
 height: 50px;
   padding: 0 16px;
   color: #24211d;
@@ -86,11 +86,11 @@ const Hint = styled.div`
   border-radius: 12px;
   background: #f3eee8;
   color: #4f4943;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.55;
 `;
 
-const AddButton = styled.button<{hasError: string}>`
+const AddButton = styled.button<{ hasError: string }>`
   width: 100%;
   height: 56px;
   border: none;
@@ -109,8 +109,6 @@ const AddButton = styled.button<{hasError: string}>`
 `;
 
 
-// задача на потом: сделать обложку опциональной (по задаче возможно и заметку)
-
 interface BookFormProps {
   addBook: (book: Omit<BookType, 'id'>) => void
 }
@@ -126,10 +124,6 @@ export function BookForm({ addBook }: BookFormProps) {
   const [error, setError] = useState('')
 
   console.log(cover)
-  // function getTitle(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
-  //     setTitle(e.target.value)
-  // }
-
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -165,9 +159,9 @@ export function BookForm({ addBook }: BookFormProps) {
     <Form onSubmit={handleSubmit}>
       <Title>Добавить книгу</Title>
 
-      <FormField>Название<Input  hasError={error} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Укажите название" /></FormField>
+      <FormField>Название<Input hasError={error} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Укажите название" /></FormField>
 
-      <FormField>Автор<Input  hasError={error} value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Укажите автора" /></FormField>
+      <FormField>Автор<Input hasError={error} value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Укажите автора" /></FormField>
 
       <FormField>Статус<Select onChange={(e) => setStatus(e.target.value as BookStatusType)} value={status}>
         <option value="want">Запланированно</option>
@@ -177,25 +171,28 @@ export function BookForm({ addBook }: BookFormProps) {
 
       {status === 'done' ? (
         <>
-         <FormField>Рейтинг
-        <Select onChange={(e) => setRating(Number(e.target.value))} value={rating}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </Select>
-      </FormField>
+          <FormField>Рейтинг
+            <Select onChange={(e) => setRating(Number(e.target.value))} value={rating}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </Select>
+          </FormField>
 
-        <FormField>Заметка<FormTextArea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Укажите ваши заметки здесь" /></FormField>
+          <FormField>Заметка<FormTextArea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Укажите ваши заметки здесь" /></FormField>
 
         </>
       ) : (
-        <Hint>Поля для оценки и заметок появятся для прочитанной книги</Hint>
+        <Hint>
+          <InfoIcon />
+          Поля для оценки и заметок появятся для прочитанной книги
+        </Hint>
       )}
 
-       <FormField>Обложка <Input hasError={''} type="url" value={cover} onChange={(e) => setCover(e.target.value)} placeholder="Укажите ссылку на обложку" /></FormField>
-     
+      <FormField>Обложка <Input hasError={''} type="url" value={cover} onChange={(e) => setCover(e.target.value)} placeholder="Укажите ссылку на обложку" /></FormField>
+
       <AddButton type="submit" hasError={error}>{error ? error : "Добавить"}</AddButton>
 
     </Form>
